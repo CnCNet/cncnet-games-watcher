@@ -1,5 +1,25 @@
+import { Profanity } from '@2toad/profanity';
 import express, { Request, Response } from 'express';
 import sqlite3 from 'sqlite3';
+
+interface Game
+{
+    game_room: string;
+    host: string;
+    map_name: string;
+    max_players: number;
+    game_version: string;
+    locked: boolean;
+    is_custom_password: boolean;
+    is_closed: boolean;
+    is_loadedGame: boolean;
+    is_ladder: boolean;
+    players: string;
+    game_mode: string;
+    tunnel_address: string;
+    tunnel_port: number;
+    channel: string;
+}
 
 export class APIServer 
 {
@@ -7,6 +27,12 @@ export class APIServer
     {
         // Create Express app
         const app = express();
+
+        const profanity = new Profanity({
+            languages: ["en", "de", "es", "fr"],
+        });
+
+        profanity.addWords(["hitler", "h1tler", "adolf-hitler", "adolfhitler", "nigguh", "negro"]);
 
         // Open SQLite database
         const db = new sqlite3.Database(databaseFileName, (err: Error | null) =>
@@ -53,7 +79,20 @@ export class APIServer
                     res.status(500).json({ error: err.message });
                     return;
                 }
-                res.json({ games: rows });
+
+                // Filter rows for profanity in gameRoom and host fields
+                const sanitizedRows = rows.map((game: Game) =>
+                {
+                    return {
+                        ...game,
+                        game_room: profanity.censor(game.game_room),
+                        host: profanity.censor(game.host),
+                        map_name: profanity.censor(game.map_name),
+                        players: profanity.censor(game.players)
+                    };
+                });
+
+                res.json({ games: sanitizedRows });
             });
         });
 
