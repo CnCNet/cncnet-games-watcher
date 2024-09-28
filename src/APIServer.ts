@@ -96,6 +96,42 @@ export class APIServer
             });
         });
 
+        app.get('/classic', (req: Request, res: Response) =>
+        {
+            const channel = req.query.channel as string;
+
+            // Basic validation to ensure the channel is in an acceptable format
+            if (channel && !/^#?\w+(-\w+)*$/.test(channel))
+            {
+                return res.status(400).json({ error: "Invalid channel format" });
+            }
+
+            if (channel && channel.length > 100)
+            {
+                return res.status(400).json({ error: "Channel name is too long" });
+            }
+
+            let sql = 'SELECT * FROM classic_client_game_counts';
+            const params: string[] = [];
+
+            if (channel)
+            {
+                sql += ' WHERE channel = ?';
+                params.push(channel);
+            }
+
+            db.all(sql, params, (err: Error | null, rows: any[]) =>
+            {
+                if (err)
+                {
+                    res.status(500).json({ error: err.message });
+                    return;
+                }
+
+                res.json(rows);
+            });
+        });
+
         // Start the server
         app.listen(port, () =>
         {

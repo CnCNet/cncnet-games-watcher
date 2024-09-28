@@ -8,6 +8,7 @@ export class App
     {
         const databaseFileName: string = "games.db";
         const channels: string[] = [
+            "#cncnet ra1-derp",
             '#cncnet-yr-games',
             '#cncnet-dta-games',
             '#cncnet-mo-games',
