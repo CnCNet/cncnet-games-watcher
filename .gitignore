@@ -1,4 +1,5 @@
 games.db
+games.db-journal
 dist
 node_modules
 package-lock.json

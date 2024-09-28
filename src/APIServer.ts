@@ -1,5 +1,6 @@
 import { Profanity } from '@2toad/profanity';
 import express, { Request, Response } from 'express';
+import path from 'path';
 import sqlite3 from 'sqlite3';
 
 interface Game
@@ -45,6 +46,13 @@ export class APIServer
             {
                 console.log('Connected to the SQLite database.');
             }
+        });
+
+        app.use((req, res, next) =>
+        {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+            next();
         });
 
         // Endpoint to return all games or filter by channel
@@ -130,6 +138,13 @@ export class APIServer
 
                 res.json(rows);
             });
+        });
+
+        // Endpoint to return HTML file for /games/cards
+        app.get('/games/cards', (req: Request, res: Response) =>
+        {
+            const htmlFilePath = path.join(__dirname, '..', 'public', 'games_cards.html');
+            res.sendFile(htmlFilePath);
         });
 
         // Start the server
