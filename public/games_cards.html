@@ -130,11 +130,18 @@
     </div>
 
     <script>
+        function getQueryParam(param)
+        {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
         async function fetchGames()
         {
             try
             {
-                const response = await fetch('https://games-api.cncnet.org/games?channel=cncnet-dta-games');
+                const channel = getQueryParam('channel') || '';
+                const response = await fetch(`https://games-api.cncnet.org/games?channel=${channel}`);
                 const data = await response.json();
                 populateGames(data.games);
             }
