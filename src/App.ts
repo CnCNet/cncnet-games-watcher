@@ -12,7 +12,7 @@ export class App
             '#cncnet-yr-games',
             '#cncnet-dta-games',
             '#cncnet-mo-games',
-            '#cncnet-rote-games',
+            '#rote-games',
             '#projectphantom-games',
             '#cncreloaded-games',
             '#cncnet-d2k-games',

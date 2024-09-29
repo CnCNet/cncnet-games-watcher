@@ -18,10 +18,11 @@
             color: silver;
             font-family: "Inter", sans-serif;
             font-optical-sizing: auto;
+            margin: 0;
         }
 
         .container {
-            width: 1300px;
+            width: 625px;
             height: auto;
         }
 
@@ -33,12 +34,12 @@
         .game-box {
             background: #13131c;
             color: silver;
-            padding: 0.5rem;
+            padding: 0.25rem;
             border-radius: 10px;
             margin: 0.25rem;
             position: relative;
             font-size: 0.95rem;
-            width: 30%;
+            width: 47%;
         }
 
         .game-box .game-name {
@@ -54,6 +55,10 @@
             margin-bottom: 0.25rem;
         }
 
+        .game-box .game-details strong {
+            color: #fff;
+        }
+
         .game-box .game-details .game-detail {
             padding: 0.1rem;
             margin-right: 0.5rem;
@@ -62,14 +67,16 @@
         .game-box .game-status {
             font-size: 0.9rem;
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 15px;
-            height: 15px;
-            background: #28ff69;
             overflow: hidden;
-            border-radius: 100%;
             padding: 0;
+            height: 100%;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            border-radius: 5px;
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
         }
 
         .game-box .game-status.open {
@@ -87,7 +94,6 @@
         }
 
         .game-box .game-box-header {
-            border-bottom: 1px solid #24242f;
             padding-bottom: 0.2rem;
         }
 
@@ -97,8 +103,7 @@
 
         .game-box .players-container {
             display: flex;
-            margin-left: 1.4rem;
-            font-size: 0.85rem;
+            margin-left: 1.3rem;
         }
 
         .game-box .game-icon {
@@ -111,7 +116,7 @@
         .game-box .game-box-header-footer {
             display: flex;
             padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.2rem;
         }
 
         .game-box .game-box-header-footer .statuses {
@@ -119,7 +124,7 @@
         }
 
         .game-box-main {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
     </style>
 </head>
