@@ -2,6 +2,7 @@ version: "3.9"
 services:
     app:
         build: .
+        restart: always
         ports:
             - "4000:4000"
         volumes:
